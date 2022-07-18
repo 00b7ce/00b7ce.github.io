@@ -2,11 +2,10 @@
   "private": true,
   "scripts": {
     "start": "npm run serve",
-    "serve": "npm run sprite && vue-cli-service serve",
-    "build": "npm run sprite && vue-cli-service build",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "hugo": "cd hugo-amp-contents && hugo && cd ..",
-    "sprite": "svg-sprite -s --symbol-dest 'public/img' --symbol-sprite './sprite.svg' --shape-transform-svgo svgo.json 'src/assets/svg-sprite/**/*.svg'",
     "new": "./shell/new.sh",
     "draft": "./shell/draft.sh",
     "deploy": "./shell/deploy.sh"
@@ -30,8 +29,7 @@
     "lottie-web": "^5.7.4",
     "prettier": "^1.19.1",
     "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "svg-sprite": "^1.5.0"
+    "sass-loader": "^8.0.2"
   },
   "eslintConfig": {
     "root": true,
