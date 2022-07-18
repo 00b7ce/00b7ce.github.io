@@ -1,0 +1,190 @@
+@use "common.scss" as *;
+@use "sass:color";
+
+@font-face {
+  font-family: 'FuturaNowVar';
+  src: local('Futura Now Var'), url('/font/FuturaNowVar.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'Tazugane'; font-weight: 100 200;
+  src: local('Tazugane Gothic StdN Regular'), url('/font/Regular.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'Tazugane'; font-weight: 300 400;
+  src: local('Tazugane Gothic StdN Regular'), url('/font/Regular.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'Tazugane'; font-weight: 500;
+  src: local('Tazugane Gothic StdN Regular'), url('/font/Regular.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'Tazugane'; font-weight: 600 700;
+  src: local('Tazugane Gothic StdN Bold'), url('/font/Bold.woff2') format('woff2');
+  font-display: fallback;
+}
+@font-face {
+  font-family:'Tazugane'; font-weight: 800 900;
+  src: local('Tazugane Gothic StdN Bold'), url('/font/Bold.woff2') format('woff2');
+  font-display: fallback;
+}
+
+
+
+:root{
+  background: color(theme);
+  accent-color: color(theme);
+  // scroll-behavior: smooth;
+
+  @include max($SM) { background: color(base); }
+
+  font-size: 11px;
+
+  @include max($LG) { font-size: 10px; }
+
+  @include max($MD) { font-size: 9.5px; }
+
+  @include max($SM) { font-size: 9px; }
+
+  --color-error: 204, 85, 85;
+  @media (prefers-color-scheme: light) {
+    --color-theme: 255,204,102;
+    --color-base: 255,255,255;
+    --color-main: 34,51,102;
+  }
+  @media (prefers-color-scheme: dark) {
+    --color-theme: 238,187,102;
+    --color-base: 42, 46, 54;
+    --color-main: 255,255,255;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: color(main,.9);
+  line-height: 1.8;
+  font-size: 1.6rem;
+  font-weight: 500;
+  font-family:
+    "Futura Now Text", "Futura", "Avenir Next", "Avenir", "Century Gothic", "Robot", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial",
+    Tazugane, 'Tazugane Gothic StdN', "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", "BIZ UDPGothic", Meiryo,
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  font-smoothing: antialiased;
+  font-feature-settings : "pkna" 1;
+  font-kerning: normal;
+  hanging-punctuation: allow-end;
+  letter-spacing: 0.02em;
+  -webkit-text-size-adjust: 100%;
+}
+:focus-visible { outline-color: color(theme); }
+::selection {
+  background: color(theme);
+  color: color(base);
+}
+::marker { color: color(theme); }
+:is(
+  ::-webkit-calendar-picker-indicator,
+  ::-webkit-clear-button,
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button
+) {
+  color: color(theme);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+}
+img {
+  border: none;
+  vertical-align: top;
+  max-width: 100%;
+  height: auto;
+}
+a{
+  text-decoration-skip-ink: none;
+  text-decoration: none;
+  color: color(theme);
+  word-break: break-all;
+}
+p a {
+  text-decoration: underline;
+}
+p {
+  margin-top: 1.6rem;
+}
+b, strong {
+  font-weight: bolder;
+}
+a,area,button,[role="button"],
+input:not([type="range"]),
+label,select,summary,textarea {
+  touch-action: manipulation;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+button{
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+}
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+h1{
+  margin: 8rem 0 2.4rem;
+  font: 5.6rem FuturaNowVar;
+  font-weight: 700;
+  font-variation-settings: "wght" 800;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: color(theme);
+
+  @include max($SM) {
+    margin-top: 6.4rem;
+  }
+}
+h2{
+  margin-top: 6.4rem;
+  font-size: 3.2rem;
+  line-height: 1.4;
+  color: color(main);
+}
+h3 {
+  margin-top: 2.4rem;
+  font-size: 2rem;
+  line-height: 1.4;
+  color: color(main);
+}
+svg {
+  fill: currentColor;
+}
+hr {
+  margin: 6.4rem -12rem .8rem;
+  border: none;
+  border-top: .2rem dashed color(theme,.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

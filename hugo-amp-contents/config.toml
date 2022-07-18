@@ -1,0 +1,29 @@
+languageCode = "ja"
+title = "WEBA"
+copyright = "© weba"
+baseURL = "https://hira.page/"
+publishDir = "../public/"
+newContentEditor = "code"
+hasCJKLanguage = true
+canonifyurls = true
+disableKinds = ["taxonomy", "taxonomyTerm", "category", "404", "home"]
+
+[author]
+  name = "Akira HIRATA"
+
+[minify]
+  minifyOutput = true
+
+[Params] # 独自変数 一部はOGP生成用
+  author = "Akira HIRATA"
+  analytics = "UA-50842673-5"
+  title = "WEBA"
+
+[markup.goldmark.renderer]
+  unsafe = true #.md内でHTMLを書く
+
+[markup.highlight]
+  lineNos = true
+  lineNumbersInTable = false
+  noClasses = false
+  style = "monokai"

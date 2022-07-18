@@ -1,0 +1,115 @@
+{{ $heder_img := .Resources.GetMatch "cover.png" }}
+{{ $heder_img_path := "" }}
+{{ if $heder_img }}
+    {{ $small := $heder_img.Fit "1280x640 q80" }}
+    {{ $heder_img_path = $small.RelPermalink }}
+{{ else }}
+    {{ $heder_img_path = "/img/placeholder.jpg" }}
+{{ end }}
+
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="{{ .Site.BaseURL }}works/{{ .Params.id }}/">
+    <title>{{- .Title }} | {{ .Site.Title -}}</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="canonical" href="{{ .Site.BaseURL }}" />
+    <meta name="robots" content="noindex">
+
+    <!-- TODO: Delete? -->
+    <script data-ad-client="ca-pub-5055970484117246" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
+    {{ $styles := resources.Get "works.scss" | toCSS (dict "targetPath" "works/style.css" "outputStyle" "compressed")| minify }}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}">
+
+    {{/*  Loading  */}}
+    <style>
+        #loader {
+            transition: opacity .2s ease;
+        }
+        main {
+            opacity: 0;
+            transition: opacity .2s ease;
+        }
+        body.show #loader {
+            opacity: 0;
+        }
+        body.show main {
+            opacity: 1;
+        }
+    </style>
+    <script defer>
+        window.addEventListener("load",function(){
+            document.getElementsByTagName("body")[0].classList.add("show");
+        });
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2T1J8R59SX"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-2T1J8R59SX');
+    </script>
+</head>
+
+<body>
+    <svg id="loader" width="120" height="30" viewBox="0 0 120 30" xmlns="https://www.w3.org/2000/svg" fill="#fff">
+        <circle cx="15" cy="15" r="15">
+            <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
+            <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
+        </circle>
+        <circle cx="60" cy="15" r="9" fill-opacity="0.3">
+            <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite" />
+            <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite" />
+        </circle>
+        <circle cx="105" cy="15" r="15">
+            <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
+            <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
+        </circle>
+    </svg>
+
+    <main>
+        {{- with $heder_img -}}
+        <img class="hero" src="{{ $heder_img_path }}" alt="{{ .Title }}" width="1200" height="600" >
+        {{ end }}
+
+        <header>
+            <h1 class="title">{{ .Title }}</h1>
+
+            {{- with .Params.exlink -}}
+            <a href="{{.}}" class="exlink" target="_blank" rel="noopener">{{.}}</a>
+            {{ end }}
+
+            <div class="meta">
+                <span class="date">
+                    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006" }}</time>
+                    {{- if ne .Date .Lastmod -}}
+                    公開 / <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2006" }}</time>更新
+                    {{ end }}
+                </span>
+
+                {{ with .Params.tags -}}
+                <ul class="tags">
+                    {{ range . -}}
+                    <li><a href="/works?tag={{ . | urlize }}" target="_top">{{ . }}</a>
+                    {{- end }}
+                </ul>
+                {{- end }}
+            </div>
+
+            {{ with .Description -}}
+            <p class="description">{{ . }}</p>
+            {{- end }}
+        </header>
+
+        <article>{{ .Content }}</article>
+    </main>
+</body>
+
+</html>

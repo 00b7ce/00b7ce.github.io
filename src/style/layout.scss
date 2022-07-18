@@ -1,0 +1,157 @@
+@use "common.scss" as *;
+
+$NAVMENU_WIDTH: 32rem;
+
+$Z_HERO: 6000;
+$Z_NAVMENU: 8000;
+$Z_MODAL: 9000;
+
+
+
+@keyframes showUpMenu {
+  0% {
+    bottom: -8rem;
+  }
+  80% {
+    bottom: calc(8rem + env(safe-area-inset-bottom));
+  }
+  100% {
+    bottom: calc(2.4rem + env(safe-area-inset-bottom));
+  }
+}
+
+.l-navToggleBtn {
+  display: none;
+
+  @include max($MD) {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4.8rem;
+    height: 4.8rem;
+    z-index: #{$Z_NAVMENU + 1};
+  }
+
+  @include max($SM) {
+    animation: showUpMenu 0.4s ease-out;
+    position: fixed;
+    top: auto;
+    background: #000;
+    bottom: calc(2.4rem + env(safe-area-inset-bottom));
+    left: calc(50vw - 10rem);
+    width: 20rem;
+    height: 5.6rem;
+  }
+}
+
+.l-navOverlay {
+  display: none;
+
+  @include max($MD) {
+    display: block;
+    z-index: $Z_NAVMENU;
+    &.show {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+    }
+  }
+}
+
+.l-navMenu{
+  position: fixed;
+  top: 0; left: 0;
+  width: $NAVMENU_WIDTH;
+  height: 100vh;
+  transition: $TRANSITION;
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+
+  @include maxmin($MD,$SM) {
+    transform: translateX(-$NAVMENU_WIDTH);
+    will-change: transform;
+    &.show  {
+      transform: translateX(0);
+    }
+  }
+
+  @include max($MD) {
+    z-index: $Z_NAVMENU;
+  }
+  @include max($SM) {
+    animation: showUpMenu 0.4s ease-out;
+    top: auto;
+    bottom: calc(2.4rem + env(safe-area-inset-bottom));
+    left: calc(50vw - 10rem);
+    width: 20rem;
+    height: 5.6rem;
+    will-change: bottom, left, width, height;
+    > * {
+      opacity: 0;
+      transform: translateY(1.6rem);
+      transition: #{$TRANSITION} .2s;
+      will-change: opacity,transform;
+    }
+    &.show  {
+      bottom: -1.8rem;
+      left: 0;
+      width: 100vw;
+      height: 56rem;
+      > * {
+        transition: 0;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+.l-main{
+  margin-left: $NAVMENU_WIDTH;
+
+  @include max($MD) {
+    margin:  0
+  }
+}
+
+.l-modal{
+  position: fixed;
+  width: 100vw; height: 100vh;
+  top: 0; left: 0;
+  overflow: scroll;
+  box-sizing: border-box;
+  z-index: $Z_MODAL;
+  overscroll-behavior-y: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  @include max($MD) {
+    justify-content: space-between;
+  }
+  &__overlay {
+    position: fixed;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+  }
+  &__window {
+    position: relative;
+    width: 90%;
+    max-width: 80rem;
+    height: 90vh;
+    iframe {
+      width: 100%;
+      height: 90vh;
+    }
+    @include max($MD) {
+      margin: 0 -24rem;
+    }
+    @include max($SM) {
+      height: 80vh;
+      iframe {
+        height: 80vh;
+      }
+    }
+  }
+}

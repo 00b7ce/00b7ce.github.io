@@ -1,0 +1,24 @@
+@use "common.scss" as *;
+
+.u-showPc,.u-hideTabSp {
+  @include max($MD) {
+    display: none !important;
+  }
+}
+
+.u-showPcTab,.u-hideSp {
+  @include max($SM) {
+    display: none !important;
+  }
+}
+
+.u-showTabSp,.u-hidePc {
+  @include min($MD + 1) {
+    display: none !important;
+  }
+}
+.u-showSp,.u-hidePcTab {
+  @include min($SM + 1) {
+    display: none !important;
+  }
+}
